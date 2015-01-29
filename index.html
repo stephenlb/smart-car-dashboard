@@ -51,12 +51,14 @@
     <!-- EXAMPLE CODE -->
     <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
     <div class="container">
-        <pre>publish({
-    pub_key : 'demo-36',
+        <pre>PUBNUB({
+    publish_key   : 'demo-36',
+    subscribe_key : 'demo-36'
+}).publish({
     channel : 'smart-car',
     message : {
-        'tachometer' : 4000,
-        'mph'        : 60
+        tachometer : 4000,
+        mph        : 60
     }
 })</pre>
     </div>
