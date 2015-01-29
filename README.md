@@ -1,3 +1,3 @@
 # Smart Car Dashboard Output
 
-Get live data feed from your smart car in realtime.
+Your car's live data feed in realtime displayed in a dashboard.

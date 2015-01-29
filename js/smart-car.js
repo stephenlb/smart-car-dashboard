@@ -3,13 +3,6 @@
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* SIMULATION VALUES */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-var r = +new Date;
-function simvalue(chart) {
-    return ({
-        tachometer : { columns: [['data', rnd( 2000, 12000 )]] },
-        mph        : { columns: [['data', rnd( 1, 120 )]] }
-    })[chart] || console.log("Chart does not exist: '"+chart+"'");
-}
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* TCP SOCKET */
@@ -25,14 +18,18 @@ PUBNUB({
 /* CHARTS */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 var charts = {};
-function receiver(message) {
-    console.log(message);
+function receiver(charts) {
+    console.log(charts);
+    PUBNUB.each( charts, function( name, value ) {
+        if (!charts[name]) return;
+        charts[name].load(simvalue(name));
+    } );
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* SIMULATION */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-setInterval( simulate, 500 );
+//setInterval( simulate, 1000 );
 function simulate() {
     PUBNUB.each( charts, function( name, chart ) {
         chart.load(simvalue(name));
@@ -40,6 +37,13 @@ function simulate() {
 }
 function rnd( min, max ) {
     return Math.floor(min + Math.random()*(max-min));
+}
+var r = +new Date;
+function simvalue(chart) {
+    return ({
+        tachometer : { columns: [['data', rnd( 2000, 12000 )]] },
+        mph        : { columns: [['data', rnd( 1, 120 )]] }
+    })[chart] || console.log("Chart does not exist: '"+chart+"'");
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
@@ -67,7 +71,7 @@ charts.tachometer = c3.generate({
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 charts.mph = c3.generate({
     bindto : PUBNUB.$('car-stat-chart-mph'),
-    color  : { pattern: ['#ddd'] },
+    color  : { pattern: ['#efefef'] },
     size   : { height: 280 },
     data   : {
         columns: [ ['data', 25] ],
