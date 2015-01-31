@@ -25,6 +25,9 @@ div.c3-widget text.c3-gauge-value {
     color: #fff;
     font-weight: 100;
 }
+g .c3-chart-arcs .c3-chart-arcs-background {
+    fill: rgba(255, 255, 255, 0.3);
+}
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* DISPLAY DIGITS */
