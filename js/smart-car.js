@@ -30,10 +30,21 @@ function receiver(charts) {
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* SIMULATION */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+var latlong = [37.7833074,-122.3992261];
 function simulate() {
+
+    // SIMULATE CAR SPEED AND TACHOMETER
     PUBNUB.each( charts, function( name, chart ) {
         chart.load(simvalue(name));
     } );
+
+    // SIMULATE CAR MOVEMENT
+    PUBNUB.events.fire( 'map-waypoint', latlong );
+    latlong[0] += Math.random()/1000;
+    latlong[1] += Math.random()/1000;
+
+    // SIMULATE TEMPERATURE
+    displays.temperature.innerHTML = rnd( 30, 120 );
 }
 function rnd( min, max ) {
     return Math.floor(min + Math.random()*(max-min));
