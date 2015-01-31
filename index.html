@@ -11,6 +11,7 @@
 
     <link href="css/smart-car.css"        rel="stylesheet">
     <link href="css/c3.min.css"           rel="stylesheet">
+    <link href="css/mapbox.css"           rel="stylesheet">
     <link href="css/bootstrap.min.css"    rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
 </head>
@@ -19,17 +20,21 @@
     <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
     <!-- DASHBOARD -->
     <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-    <div class="containerrr">
+    <div>
         <div class="row">
 
             <!-- TACHOMETER -->
-            <div class="col-xs-6">
-                <div id="car-stat-chart-tachometer"></div>
+            <div class="col-xs-6 bg-magenta">
+                <div class="c3-widget">
+                    <div id="car-stat-chart-tachometer"></div>
+                </div>
             </div>
 
             <!-- MPH -->
-            <div class="col-xs-6">
-                <div id="car-stat-chart-mph"></div>
+            <div class="col-xs-6 bg-green">
+                <div class="c3-widget">
+                    <div id="car-stat-chart-mph"></div>
+                </div>
             </div>
 
         </div>
@@ -38,18 +43,51 @@
     <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
     <!-- MAPBOX -->
     <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-    <div id="mapbox">
-        <iframe
-            width='100%'
-            height='200px'
-            frameBorder='0'
-            src='https://a.tiles.mapbox.com/v4/pubnub.l2m2g85d/geocoder.html?access_token=pk.eyJ1IjoicHVibnViIiwiYSI6IndnRkk4TmMifQ.AHRI2kg9JgT2inAA6NHHhQ'
-        ></iframe>
+    <div id="mapbox"></div>
+
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!-- DASHBOARD LOWER -->
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <div>
+        <div class="row">
+
+            <!-- TEMPERATURE -->
+            <div class="col-xs-3 bg-orange car-stat-value-area">
+                <div id="car-stat-temperature" class="car-stat-value">
+                    283<!--
+                --></div>
+                <div class="car-stat-label">temperature</div>
+            </div>
+
+            <!-- LATITUDE -->
+            <div class="col-xs-3 bg-teal car-stat-value-area">
+                <div id="car-stat-latitude" class="car-stat-value">
+                    120.03
+                </div>
+                <div class="car-stat-label">latitude</div>
+            </div>
+
+            <!-- LONGITUDE -->
+            <div class="col-xs-3 bg-yellow car-stat-value-area">
+                <div id="car-stat-longitude" class="car-stat-value">
+                    -12.383
+                </div>
+                <div class="car-stat-label">longitude</div>
+            </div>
+
+            <!-- DEBUG -->
+            <div class="col-xs-3 bg-pubnub">
+                <div id="car-stat-debug" class="car-stat-icon">
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
     <!-- EXAMPLE CODE -->
     <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!-- 
     <div class="container">
         <pre>PUBNUB({
     publish_key   : 'demo-36',
@@ -62,6 +100,7 @@
     }
 })</pre>
     </div>
+    -->
 
 
     <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
@@ -70,7 +109,9 @@
     <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
     <script src="js/d3.min.js"></script>
     <script src="js/c3.min.js"></script>
+    <script src="js/mapbox.min.js"></script>
     <script src="js/smart-car.js"></script>
+    <script src="js/smart-car-map.js"></script>
 
 </body>
 </html>

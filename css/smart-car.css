@@ -10,10 +10,78 @@ body, div, i, span, li {
     -webkit-transform-style: preserve-3d;
     -webkit-transform: translate3d(0,0,0);
 }
+.relative { position: relative }
 
-.relative {
-    position: relative;
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+/* C3 DISPLAY WIDGETS */
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+.c3-widget { padding: 10px 0 30px 0 }
+g .c3-chart-arcs .c3-chart-arcs-gauge-max,
+g .c3-chart-arcs .c3-chart-arcs-gauge-min,
+g.c3-chart-arc .c3-gauge-value,
+g .c3-chart-arcs .c3-chart-arcs-gauge-unit {
+    fill: #fff;
+    font-weight: 100;
+    font-family: "Helvetica Neue";
+    letter-spacing: 0px;
+    font-weight: 200;
 }
+div.c3-widget text.c3-gauge-value {
+    color: #fff;
+    font-weight: 100;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+/* DISPLAY DIGITS */
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+#car-stat-temperature:after {
+    content: '\00b0';
+}
+.car-stat-value-area {
+    padding-top: 40px;
+    height: 200px;
+}
+.car-stat-value {
+    color: #fff;
+    text-align: center;
+    font-family: "Helvetica Neue";
+    letter-spacing: 1px;
+    font-size: 60px;
+    font-weight: 100;
+}
+.car-stat-label {
+    color: #fff;
+    text-align: center;
+    font-family: "Helvetica Neue";
+    letter-spacing: 0px;
+    font-size: 20px;
+    font-weight: 200;
+}
+.car-stat-icon {
+    background-color: transparent;
+    background-image: url(../media/pubnub.png);
+    background-size: 70%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 200px;
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+    font-size: 140px;
+    line-height: 200px;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+/* BG COLORS */
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+.bg-pubnub  { background-color: #ce1126 }
+.bg-magenta { background-color: #e91e63 }
+.bg-green   { background-color: #bada55 }
+.bg-yellow  { background-color: #ffc107 }
+.bg-blue    { background-color: #3f51b5 }
+.bg-teal    { background-color: #009688 }
+.bg-orange  { background-color: #ff5722 }
+.bg-purple  { background-color: #ab47bc }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* HEADER */
@@ -33,14 +101,12 @@ body, div, i, span, li {
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* TACHOMETER */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-#car-stat-chart-tachometer text.c3-gauge-value {
-    font-family: "Helvetica Neue";
-    font-weight: 100;
-}
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* MAPBOX */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 #mapbox {
-    margin: 40px 0;
+    margin: 0;
+    height: 300px;
+    background: transparent;
 }

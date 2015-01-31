@@ -1,8 +1,9 @@
 (function(){
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-/* SIMULATION VALUES */
+/* SIMULATION MODE */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+demo_mode();
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* TCP SOCKET */
@@ -29,7 +30,6 @@ function receiver(charts) {
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* SIMULATION */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-//setInterval( simulate, 1000 );
 function simulate() {
     PUBNUB.each( charts, function( name, chart ) {
         chart.load(simvalue(name));
@@ -40,29 +40,45 @@ function rnd( min, max ) {
 }
 var r = +new Date;
 function simvalue(chart) {
-    return ({
+    var data = {
         tachometer : { columns: [['data', rnd( 2000, 12000 )]] },
         mph        : { columns: [['data', rnd( 1, 120 )]] }
-    })[chart] || console.log("Chart does not exist: '"+chart+"'");
+    };
+
+    if (!data[chart]) console.error("SIMULATION DATA NEEDED: '"+chart+"'");
+
+    return data[chart] || { columns: [['data', 1]] }
 }
+function demo_mode() {
+    setInterval( simulate, 400 );
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+/* DISPLAY VALUES */
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+var displays = {};
+displays.temperature = PUBNUB.$('car-stat-temperature');
+displays.latitude    = PUBNUB.$('car-stat-latitude');
+displays.longitude   = PUBNUB.$('car-stat-longitude');
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* TACHOMETER */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 charts.tachometer = c3.generate({
-    bindto : PUBNUB.$('car-stat-chart-tachometer'),
-    color  : { pattern: ['#729fcf'] },
-    size   : { height: 280 },
-    data   : {
-        columns: [ ['data', 6000] ],
-        type: 'gauge'
+    bindto     : PUBNUB.$('car-stat-chart-tachometer'),
+    color      : { pattern: ['#fefefe'] },
+    size       : { height: 228 },
+    transition : { duration: 300 },
+    data       : {
+        columns : [ ['data', 6000] ],
+        type    : 'gauge'
     },
-    gauge: {
-        min: 0,
-        max: 12000,
-        units: 'rpm',
-        width: 20,
-        label: { format: function(value, ratio) { return value } },
+    gauge : {
+        min   : 0,
+        max   : 12000,
+        units : 'rpm',
+        width : 20,
+        label : { format: function( value, ratio ) { return value } }
     }
 });
 
@@ -70,23 +86,22 @@ charts.tachometer = c3.generate({
 /* MPH */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 charts.mph = c3.generate({
-    bindto : PUBNUB.$('car-stat-chart-mph'),
-    color  : { pattern: ['#efefef'] },
-    size   : { height: 280 },
-    data   : {
+    bindto     : PUBNUB.$('car-stat-chart-mph'),
+    color      : { pattern: ['#efefef'] },
+    size       : { height: 228 },
+    transition : { duration: 300 },
+    data       : {
         columns: [ ['data', 25] ],
         type: 'gauge'
     },
-    gauge: {
-        min: 0,
-        max: 160,
-        units: 'mph',
-        width: 160,
-        label: { format: function(value, ratio) { return value } },
+    gauge : {
+        min   : 0,
+        max   : 160,
+        units : 'mph',
+        width : 130,
+        label : { format: function(value, ratio) { return value } }
     }
 });
-
-
 
 
 })();
