@@ -18,19 +18,27 @@ PUBNUB({
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* CHARTS */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-function receiver(charts) {
+function receiver(updates) {
 
     // UPDATE CHARTS
-    PUBNUB.each( charts, function( name, value ) {
-        if (!charts[name]) return;
-        charts[name].load({ columns: [['data', value]] });
+    PUBNUB.each( updates, function( name, value ) {
+        if (!updates[name]) return;
+        updates[name].load({ columns: [['data', value]] });
     } );
 
     // UPDATE DISPLAYS
-    PUBNUB.each( displays, function( name, value ) {
-        if (!displays[name]) return;
-        displays[name].innerHTML = value;
+    PUBNUB.each( updates, function( name, value ) {
+        if (!updates[name]) return;
+        updates[name].innerHTML = value;
     } );
+
+    // UPDATE MAP
+    if (updates['lat'] && updates['long']) {
+        PUBNUB.events.fire(
+            'map-waypoint',
+            [updates['lat'] && updates['long']]
+        );
+    }
 
 }
 
