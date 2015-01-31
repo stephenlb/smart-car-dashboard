@@ -18,13 +18,20 @@ PUBNUB({
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* CHARTS */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-var charts = {};
 function receiver(charts) {
-    console.log(charts);
+
+    // UPDATE CHARTS
     PUBNUB.each( charts, function( name, value ) {
         if (!charts[name]) return;
-        charts[name].load(simvalue(name));
+        charts[name].load({ columns: [['data', value]] });
     } );
+
+    // UPDATE DISPLAYS
+    PUBNUB.each( displays, function( name, value ) {
+        if (!displays[name]) return;
+        displays[name].innerHTML = value;
+    } );
+
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
@@ -40,11 +47,12 @@ function simulate() {
 
     // SIMULATE CAR MOVEMENT
     PUBNUB.events.fire( 'map-waypoint', latlong );
-    latlong[0] += Math.random()/1000;
-    latlong[1] += Math.random()/1000;
+    latlong[0] += Math.random()/1000 - Math.random()/2000;
+    latlong[1] += Math.random()/1000 - Math.random()/2000;
 
     // SIMULATE TEMPERATURE
     displays.temperature.innerHTML = rnd( 30, 120 );
+
 }
 function rnd( min, max ) {
     return Math.floor(min + Math.random()*(max-min));
@@ -75,6 +83,7 @@ displays.longitude   = PUBNUB.$('car-stat-longitude');
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* TACHOMETER */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+var charts = {};
 charts.tachometer = c3.generate({
     bindto     : PUBNUB.$('car-stat-chart-tachometer'),
     color      : { pattern: ['#fefefe'] },
