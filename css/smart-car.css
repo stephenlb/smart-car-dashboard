@@ -46,8 +46,9 @@ div.c3-widget text.c3-gauge-value {
     text-align: center;
     font-family: "Helvetica Neue";
     letter-spacing: 1px;
-    font-size: 60px;
+    font-size: 56px;
     font-weight: 100;
+    -webkit-animation: statval 10s infinite alternate;
 }
 .car-stat-label {
     color: #fff;
@@ -56,6 +57,7 @@ div.c3-widget text.c3-gauge-value {
     letter-spacing: 0px;
     font-size: 20px;
     font-weight: 200;
+    -webkit-animation: statval 20s infinite alternate;
 }
 .car-stat-icon {
     background-color: transparent;
@@ -73,10 +75,17 @@ div.c3-widget text.c3-gauge-value {
     -webkit-animation: staticon 2s infinite alternate;
 }
 @-webkit-keyframes staticon {
-    0%   {-webkit-transform: translate(  0px, -5px ) rotate(3deg);}
-    25%  {-webkit-transform: translate( -0px, 5px  ) rotate(0deg);}
+    0%   {-webkit-transform: translate(  0px, -5px ) rotate(0deg);}
+    10%  {-webkit-transform: translate(  0px, -5px ) rotate(3deg);}
+    25%  {-webkit-transform: translate( -0px,  5px ) rotate(0deg);}
     50%  {-webkit-transform: translate(  0px, -5px ) rotate(-3deg);}
-    100% {-webkit-transform: translate( -0px, 5px  ) rotate(0deg);}
+    100% {-webkit-transform: translate( -0px,  5px ) rotate(0deg);}
+}
+@-webkit-keyframes statval {
+    0%   {-webkit-transform: translate(  0px, -9px ) rotate(1deg);}
+    25%  {-webkit-transform: translate( -0px,  9px ) rotate(0deg);}
+    50%  {-webkit-transform: translate(  0px, -9px ) rotate(-1deg);}
+    100% {-webkit-transform: translate( -0px,  9px ) rotate(0deg);}
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
