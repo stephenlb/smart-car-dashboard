@@ -34,7 +34,7 @@ function receiver(updates) {
     // UPDATE CHARTS
     PUBNUB.each( updates, function( name, value ) {
         if (!charts[name]) return;
-        charts[name].load({ columns: [['data', value]] });
+        charts[name].load({ columns: [['data', Math.floor(value)]] });
     } );
 
     // UPDATE DISPLAYS
