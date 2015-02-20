@@ -16,6 +16,17 @@ PUBNUB({
 });
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+/* HISTORY */
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+PUBNUB({
+    subscribe_key : 'demo-36'
+}).history({
+    channel  : 'smart-car',
+    callback : function(msgs) { history = msgs[0] }
+});
+
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 /* CHARTS */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 function receiver(updates) {
@@ -46,10 +57,12 @@ function receiver(updates) {
 /* SIMULATION */
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 var latlong = [37.7833074,-122.3992261];
+var history = [];
 function simulate() {
 
     // SIMULATE CAR SPEED AND TACHOMETER
-    PUBNUB.each( charts, function( name, chart ) {
+    if (history.length) receiver(history.pop());
+    else PUBNUB.each( charts, function( name, chart ) {
         chart.load(simvalue(name));
     } );
 
